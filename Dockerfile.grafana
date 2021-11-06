@@ -1,0 +1,5 @@
+FROM grafana/grafana
+
+RUN grafana-cli plugins install speakyourcode-button-panel
+RUN grafana-cli plugins install grafana-worldmap-panel
+RUN grafana-cli plugins install cloudspout-button-panel

@@ -17,9 +17,27 @@ services:
   grafana:
     container_name: grafana
     image: grafana/grafana
+    build:
+      context: .
+      dockerfile: Dockerfile.grafana
     restart: always
     ports:
       - "3000:3000"
+  api:
+    container_name: api
+    image: taller4/api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:80"
+    networks:
+      default:
+        aliases:
+          - api
   notepad:
     container_name: notepad
     image: taller3/notepad
