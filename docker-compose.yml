@@ -14,6 +14,12 @@ services:
       default:
         aliases:
           - influxdb
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    restart: always
+    ports:
+      - "3000:3000"
   notepad:
     container_name: notepad
     image: taller3/notepad
