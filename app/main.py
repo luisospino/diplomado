@@ -1,10 +1,13 @@
-from fastapi import FastAPI
-import pika
 from fastapi.middleware.cors import CORSMiddleware
 import paho.mqtt.client as mqtt
+from fastapi import FastAPI
+import pika, os
+
+print('BUCKET=> ' + os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET"))
 
 broker_address="40.71.125.21"
-app = FastAPI(title="api de botones", description="esta es una api de control", version="1.0.0")
+my_bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
+app = FastAPI(title="API del proyecto final", description="API de domotica", version="1.0.0")
 
 client = mqtt.Client("test")
 client.connect(broker_address)
@@ -25,5 +28,5 @@ app.add_middleware(
 
 @app.get("/fan/{status}")
 async def index(status: str):
-    client.publish("device1", status)
+    client.publish(my_bucket, status, 2)
     return "status => " + status

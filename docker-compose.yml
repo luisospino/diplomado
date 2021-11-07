@@ -6,6 +6,8 @@ services:
     container_name: influxdb
     image: influxdb
     restart: always
+    env_file:
+      - ./credentials.env
     volumes:
      -  /tmp/testdata/influx:/root/.influxdbv2
     ports:
@@ -16,7 +18,7 @@ services:
           - influxdb
   grafana:
     container_name: grafana
-    image: grafana/grafana
+    image: grafana
     build:
       context: .
       dockerfile: Dockerfile.grafana
@@ -25,11 +27,13 @@ services:
       - "3000:3000"
   api:
     container_name: api
-    image: taller4/api
+    image: api
     restart: always
     build:
       context: .
       dockerfile: Dockerfile.api
+    env_file:
+      - ./credentials.env
     volumes:
       - ./app:/app
     ports:
@@ -38,13 +42,15 @@ services:
       default:
         aliases:
           - api
-  notepad:
-    container_name: notepad
-    image: taller3/notepad
+  jupyter:
+    container_name: jupyter
+    image: jupyter
     restart: always
     build:
       context: .
       dockerfile: Dockerfile.python
+    env_file:
+      - ./credentials.env
     volumes:
      - ./app:/app
     ports:
@@ -53,7 +59,7 @@ services:
       - rabbit
   rabbit:
     container_name: rabbit
-    image: taller3/rabbit
+    image: rabbit
     restart: always
     build:
       context: .
