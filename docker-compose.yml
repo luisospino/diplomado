@@ -9,7 +9,7 @@ services:
     env_file:
       - ./credentials.env
     volumes:
-     -  /tmp/testdata/influx:/root/.influxdbv2
+      -  /tmp/testdata/influx:/root/.influxdbv2
     ports:
       - "8086:8086"
     networks:

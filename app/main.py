@@ -30,3 +30,7 @@ app.add_middleware(
 async def index(status: str):
     client.publish(my_bucket, status, 2)
     return "status => " + status
+
+@app.get("/saludo")
+async def hello():
+    return "hola desde fast API"
