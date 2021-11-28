@@ -10,9 +10,7 @@ my_bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
 app = FastAPI(title="API del proyecto final", description="API de domotica", version="1.0.0")
 
 client = mqtt.Client("test")
-client.loop_start()
 client.connect(broker_address)
-#client.connect(broker_address, port=1883, keepalive=30, bind_address="")
 
 origins = [
     "http://localhost",
@@ -31,8 +29,5 @@ app.add_middleware(
 @app.get("/fan/{status}")
 async def index(status: str):
     client.publish(my_bucket, status, 2)
-    return "status => " + status
 
-@app.get("/saludo")
-async def hello():
-    return "hola desde fast API"
+    return "status => " + status
