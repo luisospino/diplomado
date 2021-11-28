@@ -19,10 +19,11 @@ def process_function(mesage):
     return
 
 def on_message(client, userdata, message):
+    print("nuevo mensaje")
     msg = str(message.payload.decode("utf-8"))
     process_function(msg)
 
-client = mqtt.Client("test")
+client = mqtt.Client("broker")
 client.on_message=on_message
 client.connect(broker_address)
 client.loop_start()
