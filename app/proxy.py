@@ -23,7 +23,7 @@ def proccess_function(mesage, bucket):
     try:
         mesage = float(mesage)
         if(bucket == 'water'):
-            mesage = 180 - mesage
+            mesage = ((180 - mesage)/180) * 100
             
         write_api = client_influx.write_api(write_options=SYNCHRONOUS)
         query_api = client_influx.query_api()
