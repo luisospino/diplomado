@@ -7,7 +7,7 @@ print('BUCKET=> ' + os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET"))
 
 broker_address="40.71.125.21"
 my_bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
-app = FastAPI(title="API del proyecto final", description="API de domotica", version="1.0.0")
+app = FastAPI(title="API del proyecto final", description="API de IOT", version="1.0.0")
 
 client = mqtt.Client("test")
 client.loop_start()
