@@ -3,16 +3,15 @@ import paho.mqtt.client as mqtt
 from fastapi import FastAPI
 import pika, os
 
-print('BUCKET=> ' + os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET"))
+print('BUCKET=> ' + os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET_MOTOBOMBA"))
 
 broker_address="40.71.125.21"
-my_bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET")
+my_bucket = os.environ.get("DOCKER_INFLUXDB_INIT_BUCKET_MOTOBOMBA")
 app = FastAPI(title="API del proyecto final", description="API de IOT", version="1.0.0")
 
 client = mqtt.Client("test")
 client.loop_start()
 client.connect(broker_address)
-#client.connect(broker_address, port=1883, keepalive=30, bind_address="")
 
 origins = [
     "http://localhost",
@@ -28,11 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/fan/{status}")
+@app.get("/motobomba/{status}")
 async def index(status: str):
     client.publish(my_bucket, status, 2)
-    return "status => " + status
-
-@app.get("/saludo")
-async def hello():
-    return "hola desde fast API"
+    return "STATUS MOTOBOMBA => " + status
